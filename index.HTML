@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGenius AI | Smart Study Assistant for Exams</title>
+    <meta name="description" content="AI-powered study tool with 10,000+ question papers, smart chatbot, and personalized learning for IIT-JEE, NEET, UPSC, GATE, and school exams">
+    <meta name="keywords" content="question papers, AI study assistant, exam preparation, IIT JEE papers, NEET previous papers, UPSC past papers">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #4D44DB;
+            --accent: #FF6584;
+            --dark: #2D3748;
+            --light: #F7FAFC;
+            --gray: #718096;
+            --success: #48BB78;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F9FAFB;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+            border: 2px solid var(--accent);
+        }
+        
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 101, 132, 0.2);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(to right, #F9FAFB 50%, #EFF2F7 50%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+        
+        .hero-text h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            color: var(--dark);
+        }
+        
+        .hero-text h1 span {
+            color: var(--primary);
+        }
+        
+        .hero-text p {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s;
+            border: 1px solid #E2E8F0;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+        }
+        
+        /* Question Papers Section */
+        .question-papers {
+            padding: 80px 0;
+            background-color: #F0F4F8;
+        }
+        
+        .papers-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            background-color: white;
+            border: 1px solid #CBD5E0;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .papers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .paper-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            border: 1px solid #E2E8F0;
+        }
+        
+        .paper-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .paper-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .paper-image {
+            height: 180px;
+            background-color: #EDF2F7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .paper-image img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+        
+        .paper-content {
+            padding: 20px;
+        }
+        
+        .paper-content h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .paper-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .paper-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .download-btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .download-btn:hover {
+            background-color: var(--secondary);
+        }
+        
+        .view-btn {
+            color: var(--primary);
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .view-btn:hover {
+            text-decoration: underline;
+        }
+        
+        /* AI Assistant Section */
+        .ai-assistant {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ai-content {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .ai-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+        
+        .ai-text h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .ai-text p {
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .ai-features {
+            margin-bottom: 30px;
+        }
+        
+        .ai-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .ai-feature i {
+            margin-right: 15px;
+            color: var(--accent);
+        }
+        
+        .ai-image {
+            flex: 1;
+            position: relative;
+        }
+        
+        .ai-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            text-align: center;
+            background-color: white;
+        }
+        
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .cta p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #CBD5E0;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #A0AEC0;
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero-content, .ai-content {
+                flex-direction: column;
+            }
+            
+            .hero-text, .ai-text {
+                padding-right: 0;
+                margin-bottom: 40px;
+                text-align: center;
+            }
+            
+            .hero-buttons, .papers-filter {
+                justify-content: center;
+            }
+            
+            .hero-image, .ai-image {
+                margin-top: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-text h1 {
+                font-size: 36px;
+            }
+            
+            .section-title h2 {
+                font-size: 30px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    EduGenius AI
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Question Papers</a></li>
+                    <li><a href="#">AI Assistant</a></li>
+                    <li><a href="#">Study Resources</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+                <a href="#" class="btn btn-outline">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Smart Studying <span>Powered by AI</span></h1>
+                    <p>Access 10,000+ question papers, get instant AI-powered explanations, and personalize your learning for any exam - from school tests to IIT-JEE, NEET, UPSC, and GATE.</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary">Try AI Assistant</a>
+                        <a href="#question-papers" class="btn btn-outline">Browse Papers</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://via.placeholder.com/600x400?text=AI+Study+Assistant" alt="AI Study Assistant">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose EduGenius AI?</h2>
+                <p>Our platform combines comprehensive exam resources with cutting-edge AI to supercharge your preparation</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Smart AI Tutor</h3>
+                    <p>Get instant explanations for any question or concept with our advanced AI that understands exam patterns.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>10,000+ Papers</h3>
+                    <p>Largest collection of previous year papers from all major exams with detailed solutions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Performance Analytics</h3>
+                    <p>Track your progress, identify weak areas, and get personalized recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Question Papers Section -->
+    <section class="question-papers" id="question-papers">
+        <div class="container">
+            <div class="section-title">
+                <h2>Latest Question Papers</h2>
+                <p>Access previous 10 years' papers with solutions for all major exams</p>
+            </div>
+            
+            <div class="papers-filter">
+                <button class="filter-btn active" data-filter="all">All Exams</button>
+                <button class="filter-btn" data-filter="school">School</button>
+                <button class="filter-btn" data-filter="iit">IIT-JEE</button>
+                <button class="filter-btn" data-filter="neet">NEET</button>
+                <button class="filter-btn" data-filter="upsc">UPSC</button>
+                <button class="filter-btn" data-filter="gate">GATE</button>
+            </div>
+            
+            <div class="papers-grid">
+                <!-- Paper 1 -->
+                <div class="paper-card" data-category="iit">
+                    <div class="paper-image">
+                        <span class="paper-badge">2023</span>
+                        <img src="https://via.placeholder.com/200x150?text=IIT-JEE+2023" alt="IIT-JEE 2023">
+                    </div>
+                    <div class="paper-content">
+                        <h3>IIT-JEE Advanced 2023</h3>
+                        <div class="paper-meta">
+                            <span><i class="far fa-file-alt"></i> Paper 1 & 2</span>
+                            <span><i class="far fa-clock"></i> 3 hrs</span>
+                        </div>
+                        <div class="paper-actions">
+                            <a href="#" class="download-btn">Download</a>
+                            <a href="#" class="view-btn">AI Solutions</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Paper 2 -->
+                <div class="paper-card" data-category="neet">
+                    <div class="paper-image">
+                        <span class="paper-badge">New</span>
+                        <img src="https://via.placeholder.com/200x150?text=NEET+2023" alt="NEET 2023">
+                    </div>
+                    <div class="paper-content">
+                        <h3>NEET UG 2023</h3>
+                        <div class="paper-meta">
+                            <span><i class="far fa-file-alt"></i> Full Paper</span>
+                            <span><i class="far fa-clock"></i> 3 hrs</span>
+                        </div>
+                        <div class="paper-actions">
+                            <a href="#" class="download-btn">Download</a>
+                            <a href="#" class="view-btn">AI Solutions</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Paper 3 -->
+                <div class="paper-card" data-category="school">
+                    <div class="paper-image">
+                        <img src="https://via.placeholder.com/200x150?text=CBSE+12th+2023" alt="CBSE 12th 2023">
+                    </div>
+                    <div class="paper-content">
+                        <h3>CBSE Class 12 Physics 2023</h3>
+                        <div class="paper-meta">
+                            <span><i class="far fa-file-alt"></i> Set 1</span>
+                            <span><i class="far fa-clock"></i> 3 hrs</span>
+                        </div>
+                        <div class="paper-actions">
+                            <a href="#" class="download-btn">Download</a>
+                            <a href="#" class="view-btn">AI Solutions</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Paper 4 -->
+                <div class="paper-card" data-category="upsc">
+                    <div class="paper-image">
+                        <img src="https://via.placeholder.com/200x150?text=UPSC+CSE+2022" alt="UPSC CSE 2022">
+                    </div>
+                    <div class="paper-content">
+                        <h3>UPSC CSE Prelims 2022</h3>
+                        <div class="paper-meta">
+                            <span><i class="far fa-file-alt"></i> GS Paper 1</span>
+                            <span><i class="far fa-clock"></i> 2 hrs</span>
+                        </div>
+                        <div class="paper-actions">
+                            <a href="#" class="download-btn">Download</a>
+                            <a href="#" class="view-btn">AI Solutions</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Paper 5 -->
+                <div class="paper-card" data-category="gate">
+                    <div class="paper-image">
+                        <img src="https://via.placeholder.com/200x150?text=GATE+2023" alt="GATE 2023">
+                    </div>
+                    <div class="paper-content">
+                        <h3>GATE Computer Science 2023</h3>
+                        <div class="paper-meta">
+                            <span><i class="far fa-file-alt"></i> Full Paper</span>
+                            <span><i class="far fa-clock"></i> 3 hrs</span>
+                        </div>
+                        <div class="paper-actions">
+                            <a href="#" class="download-btn">Download</a>
+                            <a href="#" class="view-btn">AI Solutions</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Paper 6 -->
+                <div class="paper-card" data-category="school">
+                    <div class="paper-image">
+                        <img src="https://via.placeholder.com/200x150?text=ICSE+10th+2023" alt="ICSE 10th 2023">
+                    </div>
+                    <div class="paper-content">
+                        <h3>ICSE Class 10 Mathematics 2023</h3>
+                        <div class="paper-meta">
+                            <span><i class="far fa-file-alt"></i> Semester 2</span>
+                            <span><i class="far fa-clock"></i> 2.5 hrs</span>
+                        </div>
+                        <div class="paper-actions">
+                            <a href="#" class="download-btn">Download</a>
+                            <a href="#" class="view-btn">AI Solutions</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#" class="btn btn-primary">View All Question Papers</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Assistant Section -->
+    <section class="ai-assistant">
+        <div class="container">
+            <div class="ai-content">
+                <div class="ai-text">
+                    <h2>Your Personal AI Study Assistant</h2>
+                    <p>Get instant explanations, solve problems step-by-step, and clarify doubts 24/7 with our advanced AI tutor.</p>
+                    
+                    <div class="ai-features">
+                        <div class="ai-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Step-by-step problem solving</span>
+                        </div>
+                        <div class="ai-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Concept explanations at multiple difficulty levels</span>
+                        </div>
+                        <div class="ai-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Personalized study recommendations</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="btn btn-primary">Try AI Assistant Now</a>
+                </div>
+                <div class="ai-image">
+                    <img src="https://via.placeholder.com/500x400?text=AI+Chat+Interface" alt="AI Assistant Interface">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Transform Your Learning?</h2>
+            <p>Join thousands of students who are studying smarter with EduGenius AI</p>
+            <a href="#" class="btn btn-primary" style="padding: 15px 30px; font-size: 18px;">Get Started for Free</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>EduGenius AI</h3>
+                    <p>Smart learning platform powered by artificial intelligence to help students excel in all exams.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Exams</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">School Exams</a></li>
+                        <li><a href="#">IIT-JEE</a></li>
+                        <li><a href="#">NEET/MBBS</a></li>
+                        <li><a href="#">UPSC</a></li>
+                        <li><a href="#">GATE</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Question Papers</a></li>
+                        <li><a href="#">Study Notes</a></li>
+                        <li><a href="#">Practice Tests</a></li>
+                        <li><a href="#">Video Lectures</a></li>
+                        <li><a href="#">AI Tutor</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 EduGenius AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Question Paper Filtering
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const paperCards = document.querySelectorAll('.paper-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    
+                    // Filter papers
+                    paperCards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Simple animation on scroll
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.feature-card, .paper-card');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Set initial state for animation
+            const featureCards = document.querySelectorAll('.feature-card, .paper-card');
+            featureCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.5s ease';
+            });
+            
+            window.addEventListener('scroll', animateOnScroll);
+            // Trigger once on load
+            animateOnScroll();
+        });
+    </script>
+</body>
+</html>

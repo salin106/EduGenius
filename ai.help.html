@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-powered study assistant for all levels - school students, college students, and competitive exam aspirants (IIT-JEE, UPSC, NEET/MBBS, GATE). Get instant help with concepts, problem solving, and exam preparation.">
+    <meta name="keywords" content="study chatbot, homework help, exam preparation, IIT JEE, UPSC, NEET, MBBS, GATE, school help, college help, AI tutor, education assistant">
+    <title>EduGenius - AI Study Assistant for All Education Levels</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+    <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #f5f7ff;
+            --accent-color: #ff6b6b;
+            --text-color: #333;
+            --light-text: #666;
+            --chat-bg: #ffffff;
+            --user-bubble: #e3f2fd;
+            --bot-bubble: #f1f1f1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .level-selector {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .level-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .level-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
+            background-color: white;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .level-btn.active, .level-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .ad-banner {
+            background-color: #f9f9f9;
+            border: 1px dashed #ccc;
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 65vh;
+            background-color: var(--chat-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 12px 15px;
+            border-radius: 18px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+        
+        .user-message {
+            align-self: flex-end;
+            background-color: var(--user-bubble);
+            border-bottom-right-radius: 5px;
+            color: var(--text-color);
+        }
+        
+        .bot-message {
+            align-self: flex-start;
+            background-color: var(--bot-bubble);
+            border-bottom-left-radius: 5px;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+            background-color: white;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 16px;
+        }
+        
+        .chat-input button {
+            margin-left: 10px;
+            padding: 12px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .chat-input button:hover {
+            background-color: #3a5bef;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            margin-top: 30px;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            padding: 10px 15px;
+            align-self: flex-start;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--light-text);
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typingAnimation {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .chat-container {
+                height: 60vh;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Quick action buttons */
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            justify-content: center;
+        }
+        
+        .quick-btn {
+            padding: 8px 12px;
+            background-color: var(--secondary-color);
+            border: 1px solid var(--primary-color);
+            border-radius: 15px;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .quick-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">EduGenius</div>
+            <div>Your AI Study Companion</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Top Ad Banner -->
+        <div class="ad-banner">
+            <!-- Google AdSense Ad Unit -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <div class="level-selector">
+            <h2>Select Your Education Level</h2>
+            <div class="level-buttons">
+                <button class="level-btn active" data-level="school">School</button>
+                <button class="level-btn" data-level="college">College</button>
+                <button class="level-btn" data-level="iit">IIT-JEE</button>
+                <button class="level-btn" data-level="neet">NEET/MBBS</button>
+                <button class="level-btn" data-level="upsc">UPSC</button>
+                <button class="level-btn" data-level="gate">GATE</button>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button class="quick-btn" data-prompt="Explain this concept: ">Concept Help</button>
+            <button class="quick-btn" data-prompt="Solve this problem: ">Problem Solving</button>
+            <button class="quick-btn" data-prompt="Give me practice questions on: ">Practice Questions</button>
+            <button class="quick-btn" data-prompt="Explain like I'm 10 years old: ">Simple Explanation</button>
+            <button class="quick-btn" data-prompt="Provide study tips for: ">Study Tips</button>
+        </div>
+        
+        <div class="chat-container">
+            <div class="chat-header">
+                <span>Study Assistant</span>
+                <span id="current-level">School Level</span>
+            </div>
+            
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot-message">
+                    Hello! I'm EduGenius, your AI study assistant. I can help you with school subjects, college courses, and competitive exam preparation. How can I assist you today?
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Ask me anything about your studies..." autocomplete="off">
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+        
+        <!-- Middle Ad Banner -->
+        <div class="ad-banner">
+            <!-- Google AdSense Ad Unit -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <h2 style="text-align: center; margin: 30px 0;">How EduGenius Can Help You</h2>
+        
+        <div class="features">
+            <div class="feature-card">
+                <h3>School Students</h3>
+                <p>Get help with homework, understand difficult concepts in Math, Science, and other subjects. Perfect for CBSE, ICSE, and state boards.</p>
+            </div>
+            <div class="feature-card">
+                <h3>College Students</h3>
+                <p>Assistance with engineering concepts, programming, mathematics, and other college-level subjects across all semesters.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Competitive Exams</h3>
+                <p>Specialized preparation for IIT-JEE, NEET, UPSC, GATE, and other exams with concept explanations and problem-solving strategies.</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 EduGenius - AI Study Assistant. All rights reserved.</p>
+        <p style="margin-top: 10px; font-size: 14px;">Privacy Policy | Terms of Service | Contact Us</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatMessages = document.getElementById('chat-messages');
+            const userInput = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
+            const levelButtons = document.querySelectorAll('.level-btn');
+            const currentLevel = document.getElementById('current-level');
+            const quickButtons = document.querySelectorAll('.quick-btn');
+            
+            let currentEducationLevel = 'school';
+            
+            // Level selection
+            levelButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    levelButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    currentEducationLevel = this.dataset.level;
+                    
+                    // Update current level display
+                    const levelNames = {
+                        'school': 'School Level',
+                        'college': 'College Level',
+                        'iit': 'IIT-JEE Preparation',
+                        'neet': 'NEET/MBBS Preparation',
+                        'upsc': 'UPSC Preparation',
+                        'gate': 'GATE Preparation'
+                    };
+                    currentLevel.textContent = levelNames[currentEducationLevel];
+                    
+                    // Add a bot message about level change
+                    addBotMessage(`I've switched to ${levelNames[currentEducationLevel]} mode. How can I help you with your ${levelNames[currentEducationLevel]} studies?`);
+                });
+            });
+            
+            // Quick action buttons
+            quickButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    userInput.value = this.dataset.prompt;
+                    userInput.focus();
+                });
+            });
+            
+            // Send message function
+            function sendMessage() {
+                const message = userInput.value.trim();
+                if (message === '') return;
+                
+                // Add user message to chat
+                addUserMessage(message);
+                userInput.value = '';
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Simulate bot response after a delay
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    generateBotResponse(message);
+                }, 1500);
+            }
+            
+            // Event listeners for sending messages
+            sendBtn.addEventListener('click', sendMessage);
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Add user message to chat
+            function addUserMessage(message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message', 'user-message');
+                messageDiv.textContent = message;
+                chatMessages.appendChild(messageDiv);
+                scrollToBottom();
+            }
+            
+            // Add bot message to chat
+            function addBotMessage(message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message', 'bot-message');
+                messageDiv.innerHTML = formatBotResponse(message);
+                chatMessages.appendChild(messageDiv);
+                scrollToBottom();
+            }
+            
+            // Format bot response with proper line breaks and lists
+            function formatBotResponse(text) {
+                // Replace **text** with <strong>text</strong> for bold
+                text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                
+                // Replace * with • for lists
+                text = text.replace(/\n\*/g, '<br>•');
+                
+                // Replace numbered lists
+                text = text.replace(/\n\d+\./g, (match) => `<br>${match.trim()}`);
+                
+                // Add line breaks for paragraphs
+                text = text.replace(/\n\n/g, '<br><br>');
+                
+                return text;
+            }
+            
+            // Show typing indicator
+            function showTypingIndicator() {
+                const typingDiv = document.createElement('div');
+                typingDiv.classList.add('typing-indicator');
+                typingDiv.id = 'typing-indicator';
+                typingDiv.innerHTML = `
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                `;
+                chatMessages.appendChild(typingDiv);
+                scrollToBottom();
+            }
+            
+            // Remove typing indicator
+            function removeTypingIndicator() {
+                const typingIndicator = document.getElementById('typing-indicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            }
+            
+            // Scroll to bottom of chat
+            function scrollToBottom() {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Generate bot response based on user input and education level
+            function generateBotResponse(userMessage) {
+                let response = "";
+                const lowerMessage = userMessage.toLowerCase();
+                
+                // School level responses
+                if (currentEducationLevel === 'school') {
+                    if (lowerMessage.includes('math') || lowerMessage.includes('mathematics')) {
+                        response = `For school mathematics, here's help with ${userMessage}:\n\n`;
+                        response += `• Understand the basic concepts first\n`;
+                        response += `• Practice similar problems step by step\n`;
+                        response += `• Use visual aids like diagrams when possible\n`;
+                        response += `• Remember formulas by understanding their derivation\n\n`;
+                        response += `Would you like me to explain a specific math concept or solve a problem?`;
+                    }
+                    else if (lowerMessage.includes('science')) {
+                        response = `Science topics can be fascinating! For ${userMessage}:\n\n`;
+                        response += `1. Start with the fundamental principles\n`;
+                        response += `2. Relate concepts to real-world examples\n`;
+                        response += `3. Conduct simple experiments if possible\n`;
+                        response += `4. Create mind maps to connect ideas\n\n`;
+                        response += `Would you like a detailed explanation of any specific science concept?`;
+                    }
+                    else if (lowerMessage.includes('history') || lowerMessage.includes('social')) {
+                        response = `For history/social studies topics like ${userMessage}:\n\n`;
+                        response += `• Create timelines to visualize events\n`;
+                        response += `• Understand causes and effects of historical events\n`;
+                        response += `• Relate past events to current situations\n`;
+                        response += `• Use mnemonic devices to remember dates\n\n`;
+                        response += `Would you like me to explain a specific historical event or concept?`;
+                    }
+                    else {
+                        response = `I can help with various school subjects including:\n\n`;
+                        response += `• Mathematics - algebra, geometry, calculus\n`;
+                        response += `• Science - physics, chemistry, biology\n`;
+                        response += `• Social Studies - history, geography, civics\n`;
+                        response += `• Languages - grammar, composition, literature\n\n`;
+                        response += `Could you be more specific about what you need help with?`;
+                    }
+                }
+                // College level responses
+                else if (currentEducationLevel === 'college') {
+                    if (lowerMessage.includes('programming') || lowerMessage.includes('code')) {
+                        response = `For college-level programming help with ${userMessage}:\n\n`;
+                        response += `• Break the problem into smaller parts\n`;
+                        response += `• Write pseudocode before actual implementation\n`;
+                        response += `• Test your code frequently\n`;
+                        response += `• Learn to debug systematically\n\n`;
+                        response += `Would you like help with a specific programming language or concept?`;
+                    }
+                    else if (lowerMessage.includes('engineering')) {
+                        response = `Engineering concepts can be challenging. For ${userMessage}:\n\n`;
+                        response += `1. Focus on understanding fundamental principles\n`;
+                        response += `2. Apply concepts to practical scenarios\n`;
+                        response += `3. Solve plenty of numerical problems\n`;
+                        response += `4. Refer to standard textbooks for deeper understanding\n\n`;
+                        response += `Which engineering subject or concept would you like help with?`;
+                    }
+                    else {
+                        response = `I can assist with various college-level topics including:\n\n`;
+                        response += `• Engineering subjects - all branches\n`;
+                        response += `• Programming and computer science\n`;
+                        response += `• Mathematics - advanced calculus, linear algebra\n`;
+                        response += `• Science subjects - physics, chemistry\n\n`;
+                        response += `Could you specify which subject or concept you need help with?`;
+                    }
+                }
+                // Competitive exam responses
+                else {
+                    if (currentEducationLevel === 'iit') {
+                        response = `For IIT-JEE preparation regarding ${userMessage}:\n\n`;
+                        response += `• Focus on NCERT fundamentals first\n`;
+                        response += `• Practice previous years' JEE questions\n`;
+                        response += `• Develop time management strategies\n`;
+                        response += `• Strengthen your problem-solving approach\n\n`;
+                        response += `Would you like help with Physics, Chemistry, or Mathematics specifically?`;
+                    }
+                    else if (currentEducationLevel === 'neet') {
+                        response = `For NEET/MBBS preparation about ${userMessage}:\n\n`;
+                        response += `1. Master NCERT biology thoroughly\n`;
+                        response += `2. Practice diagram-based questions\n`;
+                        response += `3. Focus on conceptual clarity in physics\n`;
+                        response += `4. Regular revision is key for chemistry\n\n`;
+                        response += `Which subject or topic would you like to focus on?`;
+                    }
+                    else if (currentEducationLevel === 'upsc') {
+                        response = `For UPSC preparation regarding ${userMessage}:\n\n`;
+                        response += `• Understand the syllabus comprehensively\n`;
+                        response += `• Read newspapers daily for current affairs\n`;
+                        response += `• Make notes in your own words\n`;
+                        response += `• Practice answer writing regularly\n\n`;
+                        response += `Would you like help with prelims, mains, or interview preparation?`;
+                    }
+                    else if (currentEducationLevel === 'gate') {
+                        response = `For GATE preparation about ${userMessage}:\n\n`;
+                        response += `• Focus on core subjects of your branch\n`;
+                        response += `• Solve previous 10 years' GATE papers\n`;
+                        response += `• Work on speed and accuracy\n`;
+                        response += `• Give regular mock tests\n\n`;
+                        response += `Would you like subject-specific guidance or general preparation tips?`;
+                    }
+                }
+                
+                // If no specific response was generated
+                if (response === "") {
+                    response = `I can help you with ${userMessage}. Here are some suggestions:\n\n`;
+                    response += `• Concept explanation\n`;
+                    response += `• Problem solving\n`;
+                    response += `• Study techniques\n`;
+                    response += `• Practice questions\n\n`;
+                    response += `Could you be more specific about what you need?`;
+                }
+                
+                addBotMessage(response);
+            }
+            
+            // Sample questions to start the conversation
+            setTimeout(() => {
+                addBotMessage("You can ask me things like:\n\n• Explain photosynthesis for my 8th grade exam\n• Help me solve this calculus problem from college\n• Give me tips for IIT-JEE preparation\n• What's the best way to study for NEET biology?");
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
